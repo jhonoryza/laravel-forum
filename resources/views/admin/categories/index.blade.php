@@ -16,27 +16,43 @@
                         <x-table.head>Name</x-table.head>
                         <x-table.head>Slug</x-table.head>
                         <x-table.head class="text-center">Created At</x-table.head>
+                        <x-table.head>Action</x-table.head>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
+                    @foreach ($categories as $index => $element)
                     <tr>
                         <x-table.data>
-                            <div>1</div>
+                            <div>{{$index}}</div>
                         </x-table.data>
                         <x-table.data>
-                            <div>Category Name</div>
+                            <div>{{$element->name}}</div>
                         </x-table.data>
                         <x-table.data>
-                            <div>category-name</div>
+                            <div>{{$element->slug}}</div>
                         </x-table.data>
                         <x-table.data>
-                            <div class="text-center">2005-14-06</div>
+                            <div class="text-center">{{$element->createdAt()}}</div>
+                        </x-table.data>
+                        <x-table.data>
+                            <div class="flex justify-center space-x-4">
+                                <a href="{{ route('categories.edit', $element) }}" class="text-yellow-400">
+                                    <x-zondicon-edit-pencil class="w-5 h-5"/>
+                                </a>
+                                <x-form action="{{ route('categories.destroy', $element) }}" method="delete">
+                                    <button type="submit" class="text-red-400">
+                                        <x-zondicon-trash class="w-5 h-5"/>
+                                    </button>
+                                </x-form>                                
+                            </div>
                         </x-table.data>
                     </tr>
+                    @endforeach
                 </tbody>
 
             </table>
+            {!! $categories->links() !!}
         </div>
     </section>
 
