@@ -35,6 +35,26 @@ class Thread extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function excerpt(int $limit = 250): string
+    {
+        return \Str::limit(strip_tags($this->body()), $limit);
+    }
+
+    public function body(): string
+    {
+        return $this->body;
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
+    }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
     public function delete()
     {
         $this->removeTags();

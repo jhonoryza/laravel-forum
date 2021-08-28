@@ -21,4 +21,14 @@ class Category extends Model
     {
         return $this->hasMany(Thread::class);
     }
+
+    public function name(): string
+    {
+        return ucwords($this->name);
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
+    }
 }

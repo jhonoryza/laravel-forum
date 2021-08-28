@@ -63,6 +63,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function name(): string
+    {
+        return ucwords($this->name);
+    }
+
     public function type(): int
     {
         return (int)$this->type;
