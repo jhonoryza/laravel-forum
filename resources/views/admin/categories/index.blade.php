@@ -21,10 +21,10 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
-                    @foreach ($categories as $index => $element)
+                    @foreach ($categories as $element)
                     <tr>
                         <x-table.data>
-                            <div>{{$index}}</div>
+                            <div>{{$element->id}}</div>
                         </x-table.data>
                         <x-table.data>
                             <div>{{$element->name}}</div>

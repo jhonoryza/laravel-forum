@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(5);
+        $categories = Category::orderBy('updated_at', 'Desc')->paginate(5);
 
         return view('admin.categories.index', [
             'categories' => $categories
@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -40,7 +40,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:categories'
+        ]);
+        Category::create([
+            'name' => $request->name,
+            'slug' => \Str::slug($request->name)
+        ]);
+        return redirect()->route('categories.index')->with('success', 'category created');
     }
 
     /**
@@ -62,7 +69,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -74,7 +83,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:categories,slug,' .$category->id
+        ]);
+        $category->update([
+            'name' => $request->name,
+            'slug' => \Str::slug($request->name)
+        ]);
+        return redirect()->route('categories.index')->with('success', 'category updated');
     }
 
     /**
@@ -85,6 +101,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'category deleted');        
     }
 }
