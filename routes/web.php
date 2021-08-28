@@ -18,7 +18,7 @@ use App\Http\Controllers\Pages\ThreadController;
 
 require('admin.php');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [ThreadController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'threads', 'as' => 'threads.'], function () {
     Route::get('/', [ThreadController::class, 'index'])->name('index');
@@ -28,8 +28,6 @@ Route::group(['prefix' => 'threads', 'as' => 'threads.'], function () {
 });
 
 Route::get('/category/discussion/topic', [PageController::class, 'single'])->name('single');
-
-Route::get('discussion/create', [PageController::class, 'create'])->name('create');
 
 Route::get('dashboard/users', [PageController::class, 'users'])->name('users');
 
