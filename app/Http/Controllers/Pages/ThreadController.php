@@ -15,6 +15,10 @@ class ThreadController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'verified'])->only('create');
+
+        $categories = Category::get();
+        $tags = Tag::get();
+        view()->share(compact(['categories', 'tags']));
     }
     /**
      * Display a listing of the resource.
@@ -26,10 +30,6 @@ class ThreadController extends Controller
         $threads = Thread::orderBy('updated_at', 'Desc')->paginate(5);
         view()->share(compact('threads'));
 
-        $categories = Category::get();
-        $tags = Tag::get();
-        view()->share(compact(['categories', 'tags']));
-
         return view('pages.threads.index');
     }
 
@@ -40,9 +40,6 @@ class ThreadController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
-        $tags = Tag::get();
-        view()->share(compact(['categories', 'tags']));
         return view('pages.threads.create');
     }
 
