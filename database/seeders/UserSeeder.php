@@ -20,6 +20,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'type' => User::ADMIN
         ]);
-        User::factory(5)->create();
+        User::factory(20)->create(['type' => User::ADMIN]);
     }
 }

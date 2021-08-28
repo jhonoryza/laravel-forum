@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasTimestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
+    use HasTimestamp;
 
     protected $fillable = [
         'name',
@@ -18,10 +20,5 @@ class Category extends Model
     public function threads(): HasMany
     {
         return $this->hasMany(Thread::class);
-    }
-
-    public function createdAt(): string
-    {
-        return $this->created_at->format('Y-m-d H:i');
     }
 }

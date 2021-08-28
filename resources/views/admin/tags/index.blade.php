@@ -3,7 +3,7 @@
     {{-- Header --}}
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight">
-            {{ __('Categories') }}
+            {{ __('Tags') }}
         </h2>
     </x-slot>
 
@@ -21,7 +21,7 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
-                    @foreach ($categories as $element)
+                    @foreach ($tags as $element)
                     <tr>
                         <x-table.data>
                             <div>{{$element->id}}</div>
@@ -37,10 +37,10 @@
                         </x-table.data>
                         <x-table.data>
                             <div class="flex justify-center space-x-4">
-                                <a href="{{ route('admin.categories.edit', $element) }}" class="text-yellow-400">
+                                <a href="{{ route('admin.tags.edit', $element) }}" class="text-yellow-400">
                                     <x-zondicon-edit-pencil class="w-5 h-5"/>
                                 </a>
-                                <x-form action="{{ route('admin.categories.destroy', $element) }}" method="delete">
+                                <x-form action="{{ route('admin.tags.destroy', $element) }}" method="delete">
                                     <button type="submit" class="text-red-400">
                                         <x-zondicon-trash class="w-5 h-5"/>
                                     </button>
@@ -52,7 +52,7 @@
                 </tbody>
 
             </table>
-            {!! $categories->links() !!}
+            {!! $tags->links() !!}
         </div>
     </section>
 

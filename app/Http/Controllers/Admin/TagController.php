@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('updated_at', 'Desc')->paginate(5);
-
-        return view('admin.categories.index', [
-            'categories' => $categories
-        ]);
+        $tags = Tag::orderBy('updated_at', 'Desc')->paginate(5);
+        view()->share(compact('tags'));
+        return view('admin.tags.index');
     }
 
     /**
@@ -29,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.tags.create');
     }
 
     /**
@@ -41,22 +39,22 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:categories'
+            'name' => 'required|unique:tags'
         ]);
-        Category::create([
+        Tag::create([
             'name' => $request->name,
             'slug' => \Str::slug($request->name)
         ]);
-        return redirect()->route('admin.categories.index')->with('success', 'category created');
+        return redirect()->route('admin.tags.index')->with('success', 'tag created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
         //
     }
@@ -64,13 +62,13 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Tag $tag)
     {
-        return view('admin.categories.edit', [
-            'category' => $category
+        return view('admin.tags.edit', [
+            'category' => $tag
         ]);
     }
 
@@ -78,30 +76,30 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
         $request->validate([
-            'name' => 'required|unique:categories,slug,' .$category->id
+            'name' => 'required|unique:tags,slug,' .$tag->id
         ]);
-        $category->update([
+        $tag->update([
             'name' => $request->name,
             'slug' => \Str::slug($request->name)
         ]);
-        return redirect()->route('admin.categories.index')->with('success', 'category updated');
+        return redirect()->route('admin.tags.index')->with('success', 'tag updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
-        $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'category deleted');        
+        $tag->delete();
+        return redirect()->route('admin.tags.index')->with('success', 'tag deleted');
     }
 }

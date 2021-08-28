@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CategorySeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,28 +14,28 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('tags')->insert([
             [
-                'name' => 'programming',
-                'slug' => 'programming',
+                'name' => 'laravel',
+                'slug' => 'laravel',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'general',
-                'slug' => 'general',
+                'name' => 'javascript',
+                'slug' => 'javascript',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'user interface',
-                'slug' => 'user-interface',
+                'name' => 'golang',
+                'slug' => 'golang',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'other',
-                'slug' => 'other',
+                'name' => 'python',
+                'slug' => 'python',
                 'created_at' => now(),
                 'updated_at' => now()
             ]
